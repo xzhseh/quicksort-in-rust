@@ -2,8 +2,21 @@ use std::error::Error;
 use std::fs::File;
 use std::io::{self, Read, Write};
 
-fn quicksort() {
+fn quicksort(sort_vec: &mut Vec<i32>, begin: usize, end: usize) {
+    if begin >= end {
+        return;
+    }
+    // Get the index after partition, Now sort_vec[index] is just the correct pivot
+    let index = partition(sort_vec, begin, end);
+    // Sort the other two halves
+    quicksort(sort_vec, begin, index - 1);
+    quicksort(sort_vec, index + 1, end);
+}
 
+fn partition(sort_vec: &mut Vec<i32>, begin: usize, end: usize) -> usize {
+    // Here I choose middle element of the current vector as the pivot of quicksort
+    let middle = begin + (end - begin) / 2;
+    middle
 }
 
 fn read_file_lines(filename: &String) -> Result<Vec<String>, io::Error> {
